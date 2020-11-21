@@ -1,29 +1,14 @@
-import os
 import sys
+from logo import logo
+from tamano import tamano, tamano_name
+from ingrediente import ingrediente, ingrediente_name
 
 ## MI PROYECTO
 
-tamano = {"g":580, "m":430, "p":280}    # Diccionario con tamanos de pizza y precio
-tamano_name = {"g":"Grande", "m":"Mediana", "p":"Personal"} # Diccionario con el nombre o palabra para incluir el nombre completo
-
-ingrediente = {"ja": 40, "ch": 35, "pi": 30, "dq": 40, "ac": 57.5, "pe": 38.5, "sa": 62.5} # Diccionario con ingredientes y precio
-ingrediente_name = {"ja": "Jamon", "ch": "Champinones", "pi": "Pimenton", "dq": "Doble_queso",  # Diccionario con el nombre o palabra
-                "ac": "Aceitunas", "pe": "Pepperoni", "sa": "Salchichon"}                       # para incluir el nombre completo
-
+# Variables Globales
 num_pizza = 1       # Numero de pizzas que el usuario solicita
 monto_total = 0     # Monto total final
 
-
-def logo():
-    '''
-    El display del logo para mostrarlo cada vez que inicia el menu
-    '''
-    print()
-    print("************************")
-    print("*    PIZZERIA UCAB     *")
-    print("*   La mejor Pizza !   *")
-    print("************************")
-    print()
 
 def menu_opciones(num_pizza):
     '''
@@ -38,7 +23,10 @@ def menu_opciones(num_pizza):
     '''
     logo()
     print("Pizza numero ",num_pizza)
-    opcion_tamano = input("Tamaños: Grande ( g ) Mediana ( m ) Personal ( p ): ")
+    print("Ingredientes: clave")
+    for x,y in zip(tamano_name.values(), tamano):  # En este for, se recorre y se toman las variables para imprimir
+        print(x, "  (", y, ") ", end='')           # las opciones de los tamaños disponibles
+    opcion_tamano = input("Introduzca tamaño: ")
 
     if opcion_tamano.lower() in tamano:
         monto = tamano[opcion_tamano]
@@ -61,12 +49,12 @@ def menu_ingredientes(tamano_pizza,monto):
     En caso de ingresar una opcion no valida, mostrara un mensaje indicando el error
     pero podra seguir con la seleccion de ingredientes para agregar
     '''
-    lista_ingredientes = []  #Lista de ingredientes para guardarlo en una lista
-    opcion = "1"
+    lista_ingredientes = []  # Lista de ingredientes para guardarlo en una lista
+    opcion = "1"             # Opcion es una variable para no salirse del loop sin que se cumpla la condicion
     print()
     print("Ingredientes: clave")
-    for x,y in zip(ingrediente_name.values(), ingrediente):
-        print(x, "  (", y, ")")
+    for x,y in zip(ingrediente_name.values(), ingrediente):  # En este for, se recorre y se toman las variables para imprimir
+        print(x, "  (", y, ")")                              # las opciones de los ingredientes disponibles
 
     print("\n")
     while opcion != "":
@@ -78,7 +66,7 @@ def menu_ingredientes(tamano_pizza,monto):
         elif opcion == "":
             resumen(tamano_pizza,monto,lista_ingredientes)
         else:
-            print("\t=> Debe seleccionar el tamaño correcto!!") #En caso de que se ingrese un caracter erroneo, se le notificara al usuario
+            print("\t=> Debe seleccionar el tamaño correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario
 
 
 def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
@@ -101,7 +89,12 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
 
 
     opcion = ""
-    monto_total = monto_total + monto_pizza
+    monto_total = monto_total + monto_pizza # Monto total, es una variable global que ira guardando el monto. Cada vez que se agregue una pizza nueva
+                                            # se le sumara al monto_total con el monto_pizza la cual es el valor de la pizza individual actual.
+
+
+    # En esta seccion se lista la pizza actual con sus ingredientes, y el monto o subtotal solo de esa pizza
+    # En caso de no haber ingredientes, la pizza se le llamara Margarita.
     if not ingrediente_pizza:
         print("\nUsted seleccionó una pizza ", tamano_name[tamano_pizza], " Margarita")
         print("Subtotal a pagar por una pizza ", tamano_pizza, ": ", monto_pizza)
@@ -119,11 +112,9 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
             print("\nGracias por su compra, regrese pronto")
             sys.exit()
         elif opcion == "s":
-            num_pizza = num_pizza + 1;
-            menu_opciones(num_pizza)
+            num_pizza = num_pizza + 1    # En caso de solicitar otra pizza, se le suma la variable global +1
+            menu_opciones(num_pizza)     # Seguido de eso, se llama la funcion inicial, indicando el num_pizza como parametro
         else:
             print("=> Debe seleccionar una opcion valida!!")
 
 
-
-menu_opciones(num_pizza)
