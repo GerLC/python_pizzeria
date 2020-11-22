@@ -1,9 +1,22 @@
-from data_option import tamano, tamano_name, ingrediente, ingrediente_name, bebida, bebida_name
-from logo import logo_exit
+from data.data_option import tamano, tamano_name, ingrediente, ingrediente_name, bebida, bebida_name
+from functions.logo import logo_exit
 from time import sleep 
-from factura import factura
+from functions.factura import factura
 
 def menu_bebida(monto, pedido, num_pizza):
+    '''
+    Muestra las opciones de bebidas disponibles
+
+    EL usuario se le presentaran una lista de bebidas
+    Estas bebidas tienen una clave al lado 
+    Podra agregar las bebidas que quiera escribiendo la clave
+    Una vez terminado, solo debe presionar Enter sin ingresar nada para proseguir
+
+
+    En caso de ingresar una opcion no valida, mostrara un mensaje indicando el error
+    pero podra seguir con la seleccion de ingredientes para agregar
+
+    '''
     lista_bebidas = []
     opcion = "1"
     monto_bebida = 0
@@ -39,5 +52,5 @@ def menu_bebida(monto, pedido, num_pizza):
                 factura(pedido,monto, [bebida_name[x] for x in lista_bebidas],monto_bebida, num_pizza)
                 logo_exit()
         else:
-            print("\t=> Debe seleccionar el tamaño correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario
+            print("\t=> Debe seleccionar clave correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario
 

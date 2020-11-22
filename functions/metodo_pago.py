@@ -1,5 +1,13 @@
 
-from data_option import tipo_pago
+from data.data_option import tipo_pago
+
+'''
+En este modulo se obtiene el metodo de pago. 
+Es un sistema simple que indican al usuario los metodos de pago 
+disponibles. Como transferencia, tarjetas o efectivo.
+Una vez seleccionado realiza un return que devuelve el valor
+
+'''
 
 def metodo_pago():
     opcion = "1"

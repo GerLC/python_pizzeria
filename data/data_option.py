@@ -1,6 +1,7 @@
 '''
 Este modulo tiene como objetivo guardar los datos de tipo dictionary para ser utilizados
 en la principal
+
 '''
 
  # Diccionario con tamanos de pizza y precio
@@ -25,4 +26,3 @@ bebida_name = {"re": "Refresco", "ca": "Cafe", "te": "Te", "ma": "Malta", "mi": 
 # Diccionario para metodo de pagos disponibles
 
 tipo_pago = {"td": "Tarjeta de Debito", "tc": "Tarjeta de Credito", "tr": "Trnasferencia", "ef": "Efectivo"}
-

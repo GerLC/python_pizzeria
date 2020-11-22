@@ -1,8 +1,8 @@
 import sys
 from time import sleep 
-from logo import logo
-from data_option import tamano, tamano_name, ingrediente, ingrediente_name
-from bebida import menu_bebida
+from functions.logo import logo
+from data.data_option import tamano, tamano_name, ingrediente, ingrediente_name
+from functions.bebida import menu_bebida
 
 
 
@@ -45,7 +45,7 @@ def menu_ingredientes(tamano_pizza,monto):
 
     EL usuario se le presentaran una lista de ingredientes
     Estos ingredientes tienen una clave al lado (ja, sa, pe, etc.)
-    Podra agregar los ingredientes que quiera escribiente la clave
+    Podra agregar los ingredientes que quiera escribiendo la clave
     Una vez terminado, solo debe presionar Enter sin ingresar nada para proseguir
 
 
@@ -79,7 +79,7 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
     le pregunta al usuario si desea otra pizza o no
 
     El sistema carga los datos de la pizza muestra la pizza con sus ingredientes y monto
-    Se le presente una opcion [s,n]
+    Se le presenta una opcion [s,n]
     s: O si para pedir otra pizza, iniciara otra vez la funcion menu_opcion(num_pizza) para pedir una nueva pizza
        num_pizza sumara un valor para indicar el numero de pizza de la orden
     n: O no para terminar la transaccion, mostrara al usuario final la cantidad de pizzas pedidas y el monto total.
@@ -130,5 +130,3 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
             menu_opciones(num_pizza)     # Seguido de eso, se llama la funcion inicial, indicando el num_pizza como parametro
         else:
             print("=> Debe seleccionar una opcion valida!!")
-
-menu_opciones(num_pizza)
