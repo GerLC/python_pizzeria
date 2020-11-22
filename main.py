@@ -69,7 +69,7 @@ def menu_ingredientes(tamano_pizza,monto):
             resumen(tamano_pizza,monto,lista_ingredientes)
         else:
             print("\t=> Debe seleccionar el tamaño correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario
-
+            sleep(1)
 
 def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
 
