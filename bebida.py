@@ -1,9 +1,9 @@
 from data_option import tamano, tamano_name, ingrediente, ingrediente_name, bebida, bebida_name
 from logo import logo_exit
 from time import sleep 
+from factura import factura
 
-
-def menu_bebida(monto):
+def menu_bebida(monto, pedido, num_pizza):
     lista_bebidas = []
     opcion = "1"
     monto_bebida = 0
@@ -29,12 +29,14 @@ def menu_bebida(monto):
                 monto = monto + monto_bebida
                 print("\n********************************************")
                 print("Monto total a pagar completo total: ", monto)
-                sleep(2)
+                sleep(2)            
+                factura(pedido,monto, [bebida_name[x] for x in lista_bebidas],monto_bebida, num_pizza)
                 logo_exit()
             else:
                 print("\n********************************************")
                 print("Monto total a pagar completo total: ", monto)
                 sleep(2)
+                factura(pedido,monto, [bebida_name[x] for x in lista_bebidas],monto_bebida, num_pizza)
                 logo_exit()
         else:
             print("\t=> Debe seleccionar el tamaño correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario

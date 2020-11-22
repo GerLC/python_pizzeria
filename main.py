@@ -3,14 +3,15 @@ from time import sleep
 from logo import logo
 from data_option import tamano, tamano_name, ingrediente, ingrediente_name
 from bebida import menu_bebida
-from descuento import promocion
+
+
 
 ## MI PROYECTO
 
 # Variables Globales
 num_pizza = 1       # Numero de pizzas que el usuario solicita
 monto_total = 0     # Monto total final
-
+pedido = []
 
 def menu_opciones(num_pizza):
     '''
@@ -71,8 +72,8 @@ def menu_ingredientes(tamano_pizza,monto):
             print("\t=> Debe seleccionar el tamaño correcto!!") # En caso de que se ingrese un caracter erroneo, se le notificara al usuario
             sleep(1)
 
-def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
 
+def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
     '''
     Muestra el resumen del orden de la pizza con sus ingredientes y monto y
     le pregunta al usuario si desea otra pizza o no
@@ -88,22 +89,26 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
     # Las variables global, son necesarios para modificar una variable global que hayamos definino anteriormente
     global num_pizza
     global monto_total
+    global pedido
 
 
     opcion = ""
     monto_total = monto_total + monto_pizza # Monto total, es una variable global que ira guardando el monto. Cada vez que se agregue una pizza nueva
                                             # se le sumara al monto_total con el monto_pizza la cual es el valor de la pizza individual actual.
-
+    monto_descuento = 0
 
     # En esta seccion se lista la pizza actual con sus ingredientes, y el monto o subtotal solo de esa pizza
     # En caso de no haber ingredientes, la pizza se le llamara Margarita.
+    
     if not ingrediente_pizza:
         print("\nUsted seleccionó una pizza ", tamano_name[tamano_pizza], " Margarita")
-        print("\nSubtotal a pagar por una pizza ", tamano_pizza, ": ", monto_pizza)
+        print("\nSubtotal a pagar por una pizza ", tamano_name[tamano_pizza], ": ", monto_pizza)
+        pedido.append([tamano_name[tamano_pizza],'Sin ingredientes',monto_pizza])
     else:
         print("\nUsted seleccionó una pizza ", tamano_name[tamano_pizza], " con ", 
-        *[ingrediente_name[x] for x in ingrediente_pizza], sep="-")                              # List Compression de ingredientes,
+        *[ingrediente_name[x] for x in ingrediente_pizza], sep="-")                                # List Compression de ingredientes,
         print("\nSubtotal a pagar por una pizza ", tamano_name[tamano_pizza], ": ", monto_pizza)   # aqui en el dictionary defini los valores para obtener el nombre completo del objeto
+        pedido.append([tamano_name[tamano_pizza],*[ingrediente_name[x] for x in ingrediente_pizza],monto_pizza])
 
     while opcion != "n":
         print("\n***********************")
@@ -114,9 +119,8 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
             print("El pedido tiene un total de ", num_pizza, " pizza(s) por un monto de ", monto_total)
             print("Cargando...")
             sleep(3)
-            monto_total = monto_total - promocion(num_pizza,monto_total)
-            sleep(2)
-            menu_bebida(monto_total)
+            menu_bebida(monto_total, pedido, num_pizza)
+
             print("\nGracias por su compra, regrese pronto")
             sleep(1)
             sys.exit()
