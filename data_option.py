@@ -1,0 +1,16 @@
+'''
+Este modulo tiene como objetivo guardar los datos de tipo dictionary para ser utilizados
+en la principal
+'''
+
+tamano = {"g":580, "m":430, "p":280}    # Diccionario con tamanos de pizza y precio
+tamano_name = {"g":"Grande", "m":"Mediana", "p":"Personal"} # Diccionario con el nombre o palabra para incluir el nombre completo
+
+ingrediente = {"ja": 40, "ch": 35, "pi": 30, "dq": 40, "ac": 57.5, "pe": 38.5, "sa": 62.5} # Diccionario con ingredientes y precio
+ingrediente_name = {"ja": "Jamon", "ch": "Champinones", "pi": "Pimenton", "dq": "Doble_queso",  # Diccionario con el nombre o palabra
+                    "ac": "Aceitunas", "pe": "Pepperoni", "sa": "Salchichon"}                       # para incluir el nombre completo
+
+bebidas = {'refresco':100,'limonada':45,'vino':185,'nestea':80,'frappe':50,'cafe':25}
+bebida = {"re": 80, "ca": 30, "te": 70, "ma": 65, "mi": 76, "li": 50, "ag": 25} # Diccionario con bebidas y precio
+bebida_name = {"re": "Refresco", "ca": "Cafe", "te": "Te", "ma": "Malta", "mi": "Milkshake",
+               "li": "Limonada", "ag": "Agua"}                       # para incluir el nombre completo

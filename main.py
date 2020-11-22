@@ -1,7 +1,9 @@
 import sys
+from time import sleep 
 from logo import logo
-from tamano import tamano, tamano_name
-from ingrediente import ingrediente, ingrediente_name
+from data_option import tamano, tamano_name, ingrediente, ingrediente_name
+from bebida import menu_bebida
+from descuento import promocion
 
 ## MI PROYECTO
 
@@ -23,10 +25,10 @@ def menu_opciones(num_pizza):
     '''
     logo()
     print("Pizza numero ",num_pizza)
-    print("Ingredientes: clave")
-    for x,y in zip(tamano_name.values(), tamano):  # En este for, se recorre y se toman las variables para imprimir
-        print(x, "  (", y, ") ", end='')           # las opciones de los tamaños disponibles
-    opcion_tamano = input("Introduzca tamaño: ")
+    print("Tamaño: clave - precio")
+    for x,y,z in zip(tamano_name.values(), tamano, tamano.values()):     # En este for, se recorre y se toman las variables para imprimir
+        print(x, "(", y, ")",z," ", end=' ')                             # las opciones de los tamaños disponibles
+    opcion_tamano = input("\nIntroduzca clave del tamaño: ")
 
     if opcion_tamano.lower() in tamano:
         monto = tamano[opcion_tamano]
@@ -49,12 +51,12 @@ def menu_ingredientes(tamano_pizza,monto):
     En caso de ingresar una opcion no valida, mostrara un mensaje indicando el error
     pero podra seguir con la seleccion de ingredientes para agregar
     '''
-    lista_ingredientes = []  # Lista de ingredientes para guardarlo en una lista
-    opcion = "1"             # Opcion es una variable para no salirse del loop sin que se cumpla la condicion
+    lista_ingredientes = []      # Lista de ingredientes para guardarlo en una lista
+    opcion = "1"                 # Opcion es una variable para no salirse del loop sin que se cumpla la condicion
     print()
     print("Ingredientes: clave")
-    for x,y in zip(ingrediente_name.values(), ingrediente):  # En este for, se recorre y se toman las variables para imprimir
-        print(x, "  (", y, ")")                              # las opciones de los ingredientes disponibles
+    for x,y,z in zip(ingrediente_name.values(), ingrediente,ingrediente.values()):       # En este for, se recorre y se toman las variables para imprimir
+        print(x, "  (", y, ") ",z)                                                        # las opciones de los ingredientes disponibles
 
     print("\n")
     while opcion != "":
@@ -97,10 +99,11 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
     # En caso de no haber ingredientes, la pizza se le llamara Margarita.
     if not ingrediente_pizza:
         print("\nUsted seleccionó una pizza ", tamano_name[tamano_pizza], " Margarita")
-        print("Subtotal a pagar por una pizza ", tamano_pizza, ": ", monto_pizza)
+        print("\nSubtotal a pagar por una pizza ", tamano_pizza, ": ", monto_pizza)
     else:
-        print("Usted seleccionó una pizza ", tamano_name[tamano_pizza], " con ", *[ingrediente_name[x] for x in ingrediente_pizza], sep="-")
-        print("Subtotal a pagar por una pizza ", tamano_pizza, ": ", monto_pizza)
+        print("\nUsted seleccionó una pizza ", tamano_name[tamano_pizza], " con ", 
+        *[ingrediente_name[x] for x in ingrediente_pizza], sep="-")                              # List Compression de ingredientes,
+        print("\nSubtotal a pagar por una pizza ", tamano_name[tamano_pizza], ": ", monto_pizza)   # aqui en el dictionary defini los valores para obtener el nombre completo del objeto
 
     while opcion != "n":
         print("\n***********************")
@@ -109,12 +112,19 @@ def resumen(tamano_pizza,monto_pizza,ingrediente_pizza):
 
         if opcion == "n":
             print("El pedido tiene un total de ", num_pizza, " pizza(s) por un monto de ", monto_total)
+            print("Cargando...")
+            sleep(3)
+            monto_total = monto_total - promocion(num_pizza,monto_total)
+            sleep(2)
+            menu_bebida(monto_total)
             print("\nGracias por su compra, regrese pronto")
+            sleep(1)
             sys.exit()
         elif opcion == "s":
+            sleep(1)
             num_pizza = num_pizza + 1    # En caso de solicitar otra pizza, se le suma la variable global +1
             menu_opciones(num_pizza)     # Seguido de eso, se llama la funcion inicial, indicando el num_pizza como parametro
         else:
             print("=> Debe seleccionar una opcion valida!!")
 
-
+menu_opciones(num_pizza)
